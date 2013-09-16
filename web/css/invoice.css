@@ -1,0 +1,40 @@
+/* 
+    Document   : invoice
+    Created on : Sep 15, 2013, 9:19:35 AM
+    Author     : LPM
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+    border: 3px solid black;
+    margin: 10px;
+    border: 2px solid black;
+    width: 200px;
+    padding: 10px; 
+}
+
+h1, p {
+    border: 1px dashed black;
+    padding: 10px;
+}
+h1 {
+    text-align:center;
+    margin: .5em 0 .25em; /* .5em top, 0 right and left, .25em bottom */
+    padding-left: 15px;
+    background-color:yellow;
+}
+
+h4 {
+    text-align:center;    
+    background-color:yellow;
+}
+
+
+#total {
+    background-color:yellow;
+
+}
+
+
+
