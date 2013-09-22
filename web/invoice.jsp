@@ -19,53 +19,63 @@
 
     </head>
     <body>
+        <form id="form1" name="form1" method="POST" action="MenuController.jsp"
+              >
 
-        <h1>LPM Pizza Restaurant</h1>
-        <h4>INVOICE</h4>
-        <table>
-            <tr>
-                <th>Item</th>
-                <th></th>
-                <th></th>
-                <th>Price</th>
-            </tr>
-            <%
-                ArrayList<ArrayList> ii = (ArrayList<ArrayList>) request.getAttribute("invoiceitem");
-                String id = "";
-                String desc = "";
-                String um = "";
-                String price = "";
-                //out.print(ii.size());
-                for (int r = 0; r < ii.size(); r++) {
+            <h1>LPM Pizza Restaurant</h1>
+            <h4>INVOICE</h4>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th></th>
+                    <th></th>
+                    <th>Price</th>
+                </tr>
+                <%
+                    ArrayList<ArrayList> ii = (ArrayList<ArrayList>) request.getAttribute("invoiceitem");
+                    String id = "";
+                    String desc = "";
+                    String um = "";
+                    String price = "";
+                    //out.print(ii.size());
+                    for (int r = 0; r < ii.size(); r++) {
 
-                    id = ii.get(r).get(0).toString();
-                    desc = (String) ii.get(r).get(1).toString();
-                    //desc = (String) ii.get(r).toString();
-                    um = (String) ii.get(r).get(2);
-                    NumberFormat currency = NumberFormat.getCurrencyInstance();
-                    price = currency.format(ii.get(r).get(3));
-                    //price = currency.format(ii.get(r));
+                        id = ii.get(r).get(0).toString();
+                        desc = (String) ii.get(r).get(1).toString();
+                        //desc = (String) ii.get(r).toString();
+                        um = (String) ii.get(r).get(2);
+                        NumberFormat currency = NumberFormat.getCurrencyInstance();
+                        price = currency.format(ii.get(r).get(3));
+                        //price = currency.format(ii.get(r));
 
 
 
-            %>
-            <tr><td><%=id%></td>
-                <td><%=desc%></td>
-                <td><%=um%></td>
-                <td><%=price%></td></tr>
+                %>
+                <tr><td><%=id%></td>
+                    <td><%=desc%></td>
+                    <td><%=um%></td>
+                    <td><%=price%></td></tr>
 
-            <%
-                }
-            %>     
+                <%
+                    }
+                %>     
 
-            <%
-                //String total = request.getAttribute("ordertotal");
+                <%
+                    //String total = request.getAttribute("ordertotal");
 
-            %> 
-            <tr><td></td>
-                <td></td>
-                <td><h4>Total</h4></td>                
-                <td><%out.print(request.getAttribute("ordertotal"));%></td></tr>
-        </table>
+                %> 
+                <tr><td></td>
+                    <td></td>
+                    <td><h4>Total</h4></td>                
+                    <td><%out.print(request.getAttribute("ordertotal"));%></td></tr>
+            </table>
+
+        </form>
+        <form id="form1" name="form1" method="GET" action="index.html">
+            <h1>
+                <input type="submit" value="Submit Payment">
+                
+            </h1>
+        </form>
     </body>
 </html>

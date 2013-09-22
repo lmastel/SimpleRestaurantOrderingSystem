@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author LPM
  */
 public class MenuController extends HttpServlet {
-    private static final String RESULT_PAGE = "/order.jsp";
+    private static final String RESULT_PAGE = "order.jsp";
 
-    /**
+    /*
      * Processes requests for both HTTP
      * <code>GET</code> and
      * <code>POST</code> methods.
