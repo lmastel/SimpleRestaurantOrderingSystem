@@ -4,9 +4,9 @@
  */
 package SROS.controller;
 
-import SROS.model.MenuBuilder;
+import SROS.model.MenuService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author LPM
  */
 public class MenuController extends HttpServlet {
-    private static final String RESULT_PAGE = "order.jsp";
+    private static final String RESULT_PAGE = "/order.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -78,12 +78,13 @@ public class MenuController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        MenuBuilder mb = new MenuBuilder();
-        String[] i = mb.getMenuItems();
         
-        request.setAttribute("menuitems", i[0]);
-        //request.setAttribute("names", i[1]);
+        //processRequest(request, response);
+        MenuService ms = new MenuService();
+        ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
+        
+        request.setAttribute("menuitems", menuitems);
+        
         
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);

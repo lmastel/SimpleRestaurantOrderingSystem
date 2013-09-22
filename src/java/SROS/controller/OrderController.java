@@ -6,6 +6,7 @@ package SROS.controller;
 
 import SROS.model.OrderBuilder;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.TreeMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -80,20 +81,19 @@ public class OrderController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         String[] orderItems = request.getParameterValues("menuitems");        
-        System.out.println(orderItems.length);
+        System.out.println("ORDERCONTROLLER" + "orderItems length =" + orderItems.length);
+        System.out.println("ORDERCONTROLLER" + orderItems.toString());
         
     
-        OrderBuilder mb = new OrderBuilder(orderItems);        
-        TreeMap<String,String> invoiceItems = mb.getInvoiceItems();
-                
-        request.setAttribute("orderitem", invoiceItems);
+        OrderBuilder ob = new OrderBuilder(orderItems);        
+        ArrayList<ArrayList> invoiceItems;
+      
+        request.setAttribute("invoiceitem", ob.getInvoiceItems());
         
-        request.setAttribute("ordertotal", mb.getOrderTotal());
+        request.setAttribute("ordertotal", ob.getOrderTotal());
         
         
-        //request.setAttribute("orderitem0", orderItems[0]);
-        //request.setAttribute("itemprice0", i);
-        
+               
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);
         view.forward(request, response);

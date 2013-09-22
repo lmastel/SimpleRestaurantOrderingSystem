@@ -4,6 +4,9 @@
     Author     : LPM
 --%>
 
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="SROS.model.MenuService"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.TreeMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,24 +16,43 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>LPM Pizza Restaurant</title>
         <link rel="stylesheet" type="text/css" href="css/invoice.css">
-        
+
     </head>
     <body>
-        
+
         <h1>LPM Pizza Restaurant</h1>
         <h4>INVOICE</h4>
         <table>
             <tr>
                 <th>Item</th>
+                <th></th>
+                <th></th>
                 <th>Price</th>
             </tr>
             <%
-                TreeMap<String, String> ii = (TreeMap<String, String>) request.getAttribute("orderitem");
+                ArrayList<ArrayList> ii = (ArrayList<ArrayList>) request.getAttribute("invoiceitem");
+                String id = "";
+                String desc = "";
+                String um = "";
+                String price = "";
+                //out.print(ii.size());
+                for (int r = 0; r < ii.size(); r++) {
 
-                for (Map.Entry invoice : ii.entrySet()) {
+                    id = ii.get(r).get(0).toString();
+                    desc = (String) ii.get(r).get(1).toString();
+                    //desc = (String) ii.get(r).toString();
+                    um = (String) ii.get(r).get(2);
+                    NumberFormat currency = NumberFormat.getCurrencyInstance();
+                    price = currency.format(ii.get(r).get(3));
+                    //price = currency.format(ii.get(r));
+
+
+
             %>
-            <tr><td><%=invoice.getKey()%></td>
-                <td><%=invoice.getValue()%></td></tr>
+            <tr><td><%=id%></td>
+                <td><%=desc%></td>
+                <td><%=um%></td>
+                <td><%=price%></td></tr>
 
             <%
                 }
@@ -38,9 +60,11 @@
 
             <%
                 //String total = request.getAttribute("ordertotal");
-                
+
             %> 
-            <tr><td>Total</td>
+            <tr><td></td>
+                <td></td>
+                <td><h4>Total</h4></td>                
                 <td><%out.print(request.getAttribute("ordertotal"));%></td></tr>
         </table>
     </body>

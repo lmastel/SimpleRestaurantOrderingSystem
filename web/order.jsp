@@ -4,6 +4,11 @@
     Author     : LPM
 --%>
 
+
+<%@page import="java.text.NumberFormat"%>
+<%@page import="SROS.model.MySQLDBAccessor"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="SROS.model.MenuService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,6 +22,7 @@
                     for (var i = 0; i < menuitems.length; i++) {
                         if (menuitems[i].checked) {
                             namelist += menuitems[i].value + "\n";
+                            
                         }
                     }
                 }
@@ -39,30 +45,47 @@
               onsubmit="return validate();">
             <h1>LPM Pizza Restaurant</h1>
             <h2>Select Your Pizza and Extras Here</h2>
+            <table>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>                    
+                    <th>Item</th>
+                    <th></th>
+                    <th>Price</th>
+                </tr>
 
-            <input type="checkbox" name="menuitems" value="01 Cheese Pizza">01 Cheese Pizza $10.00<br>
-            <input type="checkbox" name="menuitems" value="02 Pepperoni Pizza">02 Pepperoni Pizza $12.00<br>
-            <input type="checkbox" name="menuitems" value="03 Sausage Pizza">03 Sausage Pizza $13.00<br>
-            <input type="checkbox" name="menuitems" value="04 Veggie Pizza">04 Veggie Pizza $11.00<br>
-            <input type="checkbox" name="menuitems" value="05 BBQ Chicken Pizza">05 BBQ Chicken Pizza $13.00<br>
-            <input type="checkbox" name="menuitems" value="06 Hawiian Pizza">06 Hawiian Pizza $ 14.00<br>
-            <input type="checkbox" name="menuitems" value="07 Mexican Pizza">07 Mexican Pizza $14.00<br>
-            <input type="checkbox" name="menuitems" value="08 Margherita Pizza">08 Margherita Pizza $14.00<br>
-            <input type="checkbox" name="menuitems" value="09 Extra Cheese">09 Extra Cheese $2.50 <br>
-            <input type="checkbox" name="menuitems" value="10 Extra Pepperoni">10 Extra Pepperoni $2.50<br>
-            <input type="checkbox" name="menuitems" value="11 Extra Sausage">11 Extra Sausage $ 2.75<br>
-            <input type="checkbox" name="menuitems" value="12 Onions">12 Onions $1.00<br>
-            <input type="checkbox" name="menuitems" value="13 Black Olives">13 Black Olives $1.50<br>
-            <input type="checkbox" name="menuitems" value="14 Peppers">14 Peppers $1.75<br>
-            <input type="checkbox" name="menuitems" value="15 Mushrooms">15 Mushrooms $1.75<br>
-            <input type="checkbox" name="menuitems" value="16 Garlic Bread">16 Garlic Bread $4.00<br>
-            <input type="checkbox" name="menuitems" value="17 Soda">17 Soda $3.50<br>
-            <input type="checkbox" name="menuitems" value="18 Beer">18 Beer $5.25<br>
+                <%
+                    ArrayList<ArrayList> a = (ArrayList<ArrayList>) request.getAttribute("menuitems");
+                    String id = "";
+                    String desc = "";
+                    String um = "";
+                    String price = "";
+                    for (int r = 0; r < a.size(); r++) {
 
-            <p></p>
-            <input type="submit" value="Place Order">
-            <input type="reset" value="Start Over">
-        </form>
+                        id = a.get(r).get(0).toString();
+                        desc = (String) a.get(r).get(1);
+                        um = (String) a.get(r).get(2);
+                        NumberFormat currency = NumberFormat.getCurrencyInstance();
+                        price = currency.format(a.get(r).get(3));
 
+
+                %>
+                <tr><td></td>
+                
+
+               <td> <input type="checkbox" name="menuitems" value="<%=id%>"><td><%=id%></td><td><%=desc%></td><td><%=um%></td><td><%=price%></td></tr>
+
+                <%
+
+
+                    }
+                %>
+                </table>
+                <p></p>
+                <input type="submit" value="Place Order">
+                <input type="reset" value="Start Over">
+                </form>
+            
     </body>
 </html>
