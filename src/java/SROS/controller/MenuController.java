@@ -83,8 +83,7 @@ public class MenuController extends HttpServlet {
         MenuService ms = new MenuService();
         ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
         
-        request.setAttribute("menuitems", menuitems);
-        
+        request.setAttribute("menuitems", menuitems);        
         
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);

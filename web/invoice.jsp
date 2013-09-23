@@ -37,19 +37,14 @@
                     String desc = "";
                     String um = "";
                     String price = "";
-                    //out.print(ii.size());
+
                     for (int r = 0; r < ii.size(); r++) {
 
                         id = ii.get(r).get(0).toString();
                         desc = (String) ii.get(r).get(1).toString();
-                        //desc = (String) ii.get(r).toString();
                         um = (String) ii.get(r).get(2);
                         NumberFormat currency = NumberFormat.getCurrencyInstance();
                         price = currency.format(ii.get(r).get(3));
-                        //price = currency.format(ii.get(r));
-
-
-
                 %>
                 <tr><td><%=id%></td>
                     <td><%=desc%></td>
@@ -74,7 +69,7 @@
         <form id="form1" name="form1" method="GET" action="index.html">
             <h1>
                 <input type="submit" value="Submit Payment">
-                
+
             </h1>
         </form>
     </body>

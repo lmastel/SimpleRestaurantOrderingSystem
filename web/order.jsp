@@ -29,7 +29,6 @@
                 if (namelist == "") {
                     alert("select menuitems");
                 } else {
-                    //alert(namelist);
                     document.form1.submit();
                 }
                 return false;

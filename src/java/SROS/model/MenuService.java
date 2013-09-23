@@ -30,19 +30,5 @@ public class MenuService {
         //return menuDAO.getOneMenuItem(id);
     }
 
-    public static void main(String[] args) {
-        ArrayList ij = new ArrayList<>();
-        MenuService ms = new MenuService();
-        ArrayList al = ms.getOneMenuItem(1);
-        System.out.println("al =" + al.toString());
-         
-        
-        ij.add(0, al);
-        System.out.println("ij =" + ij.toString());
-        
-
-
-
-
-    }
+    
 }

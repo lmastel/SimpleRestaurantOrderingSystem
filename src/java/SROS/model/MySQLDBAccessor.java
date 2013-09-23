@@ -153,14 +153,5 @@ public class MySQLDBAccessor {
        
     }
 
-    public static void main(String[] args) {
-        MySQLDBAccessor db = new MySQLDBAccessor();
-        //ArrayList<ArrayList> rows = db.getResultSetRows
-        ArrayList rows = db.getResultSetRow(9);
-        System.out.println(rows.toString());
-        System.out.println(rows.get(0));
-//        System.out.println(rows.get(1));
-//        System.out.println(rows.get(2));
-//        System.out.println(rows.get(3));
-    }
+    
 }
