@@ -26,8 +26,23 @@ public class MenuService {
     }
 
     public final ArrayList getOneMenuItem(int id) {
-        return menuDAO.getOneMenuItem(id);
-        //return menuDAO.getOneMenuItem(id);
+        return menuDAO.getOneMenuItem(id);       
+        
+    }
+    
+    public final boolean insertOneMenuItem(String desc, String um, double price) {
+        return menuDAO.insertOneMenuItem(desc, um, price);
+        //return true;        
+    }
+    
+    public final boolean updateOneMenuItem(int id, String desc, String um, double price) {
+        return menuDAO.updateOneMenuItem(id, desc, um, price);
+        //return true;        
+    }
+    
+    public final boolean deleteOneMenuItem(int id) {
+        return menuDAO.deleteOneMenuItem(id);
+        //return true;        
     }
 
     

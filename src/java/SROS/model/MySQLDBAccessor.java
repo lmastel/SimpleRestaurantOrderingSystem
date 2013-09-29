@@ -27,8 +27,10 @@ public class MySQLDBAccessor {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url, username, password);
+            System.out.println("connection good");
             return connection;
         } catch (SQLException e) {
+            System.out.println("connection bad");
             String message = e.getMessage().toString();
             String title = "Class MySQLDBAccessor method getConnection";
             System.err.println(message + " " + title);
@@ -107,6 +109,7 @@ public class MySQLDBAccessor {
             throws SQLException {
         ArrayList<ArrayList> rows = new ArrayList<>();
         ResultSetMetaData metaData = results.getMetaData();
+        
         while (results.next()) {
             ArrayList<Object> row = new ArrayList<>();
             
@@ -152,6 +155,116 @@ public class MySQLDBAccessor {
         return rows;
        
     }
+    
+    public final boolean insertRow(final String itemDesc,
+            final String unitOfMeasure, final double unitPrice) {
+        
+        int numberOfRowsInserted = 0;
+        String sql = "INSERT INTO menu "
+                + "(item_desc, unit_of_measure, unit_price) "
+                + "VALUES(?, ?, ?)";
+
+        try (Connection connection = getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, itemDesc);
+            ps.setString(2, unitOfMeasure);
+            ps.setDouble(3, unitPrice);
+            
+            numberOfRowsInserted = ps.executeUpdate();
+            System.out.println("numberOfRowsInserted = " + numberOfRowsInserted);
+
+            ps.close();
+            connection.close();
+
+            return true;
+
+        } catch (SQLException e) {
+            String message = e.getMessage().toString();
+            String title = "Class MySQLDBAccessor method insertRow";
+            //outputExceptionMessage(message, title);
+            System.err.println("message" + " " + title);
+            System.err.println("error code= " + e.getErrorCode());
+            return false;
+        }
+    }
+    
+    public final boolean updateRow(final int menuId, final String itemDesc, 
+            final String unitOfMeasure, final double unitPrice) {
+        int numberOfRowsUpdated = 0;
+        
+        String sql = "UPDATE menu SET item_desc = ?, unit_of_measure = ?, unit_price = ? WHERE menu_id = ?";
+
+        //UPDATE menu SET menu_id = 17, item_desc = "Whisky", unit_of_measure = "1oz", unit_price = 3.50 WHERE menu_id = 18;
+        
+        try (Connection connection = getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)) {            
+
+            ps.setString(1, itemDesc);
+            
+            ps.setString(2, unitOfMeasure);
+
+            ps.setDouble(3, unitPrice);
+            
+            ps.setInt(4, menuId);
+
+            numberOfRowsUpdated = ps.executeUpdate();
+            System.out.println("numberOfRowsUpdated = " + numberOfRowsUpdated);
+
+            ps.close();
+
+            connection.close();
+
+            return true;
+
+        } catch (SQLException e) {
+            String message = e.getMessage().toString();
+            String title = "Class MySQLDBAccessor method updateRow";
+            //outputExceptionMessage(message, title);
+            System.err.println("message" + " " + title);
+            System.err.println("error code= " + e.getErrorCode());
+            return false;
+        }
+    }
+
+
+     public final boolean deleteRow(final int id) {
+        int numberOfRowsDeleted = 0;
+        String sql = "DELETE FROM menu WHERE menu_id = ?";
+
+        try (Connection connection = getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)) {
+            System.out.println("deleteRow id =" + id);
+            ps.setInt(1, id);
+
+            numberOfRowsDeleted = ps.executeUpdate();
+            
+            System.out.println("numberOfRowsDeleted =" + numberOfRowsDeleted);
+
+            ps.close();
+            connection.close();
+
+            return true;
+        } catch (SQLException e) {
+            String message = e.getMessage().toString();
+            String title = "Class MySQLDBAccessor method deleteRow";
+            //outputExceptionMessage(message, title);
+            System.err.println("message" + " " + title);
+            System.err.println("error code= " + e.getErrorCode());
+            return false;
+        }
+    }
 
     
-}
+    public static void main(String[] args) {
+        MySQLDBAccessor db = new MySQLDBAccessor();
+        //db.deleteRow(17);
+        //db.updateRow("Gin", "1 oz", 2.50, 17);
+        db.insertRow("Moz Sticks", "6n pc", 5.50);
+       
+        
+    }
+    
+    
+    
+}//end of class MySQLDBAccessor

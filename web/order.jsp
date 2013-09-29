@@ -15,6 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>LPM Pizza Restaurant Order Page</title>
+        <link rel="stylesheet" type="text/css" href="css/order.css">
         <script>
             function validate() {
                 var namelist = "";
@@ -22,7 +23,7 @@
                     for (var i = 0; i < menuitems.length; i++) {
                         if (menuitems[i].checked) {
                             namelist += menuitems[i].value + "\n";
-                            
+
                         }
                     }
                 }
@@ -48,9 +49,9 @@
                 <tr>
                     <th></th>
                     <th></th>
-                    <th></th>                    
                     <th>Item</th>
                     <th></th>
+                    
                     <th>Price</th>
                 </tr>
 
@@ -71,20 +72,22 @@
 
                 %>
                 <tr><td></td>
-                
 
-               <td> <input type="checkbox" name="menuitems" value="<%=id%>"><td><%=id%></td><td><%=desc%></td><td><%=um%></td><td><%=price%></td></tr>
+
+                    <td> <input type="checkbox" name="menuitems" value="<%=id%>"><td><%=desc%></td><td><%=um%></td><td></td><td><%=price%></td></tr>
 
                 <%
 
 
                     }
                 %>
-                </table>
-                <p></p>
+            </table>
+
+            <h1>
                 <input type="submit" value="Place Order">
                 <input type="reset" value="Start Over">
-                </form>
-            
+            </h1>
+        </form>
+
     </body>
 </html>

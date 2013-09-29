@@ -1,0 +1,83 @@
+/* 
+    Document   : menumaintain
+    Created on : Sep 26, 2013, 12:26:21 PM
+    Author     : LPM
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+#body {
+    display: table;
+    table-layout: auto;
+            
+}
+
+
+h1{
+    color:blue;
+}
+
+.head1{
+    color: blue;
+    background-color: yellow;
+    border-width: 3px;
+}
+
+
+#item, #desc, #um, #price {
+    display: table-cell;        
+}
+
+#del{
+    color: blue; 
+    background-color: red;
+}
+
+#chgdel {
+    display: table-cell;  
+    color: blue;
+    background-color: blue;
+    width: 50px;
+    
+}
+
+#form2{
+
+    position:fixed;
+    top:110px;
+    right:220px;    
+}
+
+#body2 {
+    display: table;
+    table-layout: auto;    
+}
+
+
+.head2{
+    color: yellow;
+    background-color: blue;
+}
+
+.add{
+    font-style: italic;
+     
+}
+
+#desc2, #um2, #price2 {
+    display: table-cell;    
+}
+
+
+#add {
+    display: table-cell; 
+    width: 50px;
+    color: yellow;
+    background-color: blue;
+    
+}
+
+
+
+

@@ -1,0 +1,77 @@
+
+/* 
+    Document   : database
+    Created on : Sep 25, 2013, 2:12:08 PM
+    Author     : LPM
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body {
+    border: 3px solid black;
+    margin: 10px;
+    border: 2px solid black;
+    width: 725px;
+    padding: 10px; 
+}
+
+h1{
+    /*position:fixed;
+    top:30px;*/
+}
+
+#form2{
+
+    position:fixed;
+    top:22px;
+    right:0px;
+}
+
+th {
+    
+    
+    color: blue;
+    border:5px solid yellow;
+    height: 20px;
+    width: 0px;
+}
+
+td { 
+    height: 20px;
+    width: 0px;
+
+    /*      top right bottom left*/
+    padding:10px 10px 10px 10px;
+}
+#chg {
+    height: 20px;
+    width: 75px;
+    text-align: center;
+    border-spacing: 100px;
+    color: blue;
+    background-color: yellow;
+
+}
+
+#del {
+    height: 20px;
+    width: 75px;
+    text-align: center;
+    color: whitesmoke;
+    background-color: red;
+}
+
+#add {
+    height: 20px;
+    width: 75px;
+    text-align: center;
+    color: yellow;
+    background-color: green;
+}
+
+input {
+    height: 20px;
+    width: 150px;
+    font-style: italic;
+
+}
+

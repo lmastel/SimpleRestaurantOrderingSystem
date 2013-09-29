@@ -27,8 +27,7 @@
             <table>
                 <tr>
                     <th>Item</th>
-                    <th></th>
-                    <th></th>
+                    <th></th>                   
                     <th>Price</th>
                 </tr>
                 <%
@@ -46,9 +45,10 @@
                         NumberFormat currency = NumberFormat.getCurrencyInstance();
                         price = currency.format(ii.get(r).get(3));
                 %>
-                <tr><td><%=id%></td>
-                    <td><%=desc%></td>
+
+                <tr><td><%=desc%></td>
                     <td><%=um%></td>
+                    <td></td>
                     <td><%=price%></td></tr>
 
                 <%

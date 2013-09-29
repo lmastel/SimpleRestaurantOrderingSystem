@@ -8,6 +8,14 @@
         <servlet-name>OrderController</servlet-name>
         <servlet-class>SROS.controller.OrderController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MenuMaintainController</servlet-name>
+        <servlet-class>SROS.controller.MenuMaintainController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MenuAddController</servlet-name>
+        <servlet-class>SROS.controller.MenuAddController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MenuController</servlet-name>
         <url-pattern>/MenuController.jsp</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>OrderController</servlet-name>
         <url-pattern>/OrderController.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenuMaintainController</servlet-name>
+        <url-pattern>/MenuMaintainController.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenuAddController</servlet-name>
+        <url-pattern>/MenuAddController.jsp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

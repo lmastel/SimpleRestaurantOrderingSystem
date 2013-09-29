@@ -4,8 +4,11 @@
  */
 package SROS.controller;
 
-import SROS.model.OrderBuilder;
+import SROS.model.MaintenanceBuilder;
+import SROS.model.MenuService;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author LPM
  */
-public class OrderController extends HttpServlet {
-    private static final String RESULT_PAGE = "invoice.jsp";
+public class MenuMaintainController extends HttpServlet {
+
+    private static final String RESULT_PAGE = "/menumaintain.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -38,10 +42,10 @@ public class OrderController extends HttpServlet {
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet OrderController</title>");            
+//            out.println("<title>Servlet MenuMaintainController</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet OrderController at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet MenuMaintainController at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        } finally {            
@@ -62,7 +66,15 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        //processRequest(request, response);
+        MenuService ms = new MenuService();
+        ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
+
+        request.setAttribute("menuitems", menuitems);
+
+        RequestDispatcher view =
+                request.getRequestDispatcher(RESULT_PAGE);
+        view.forward(request, response);
     }
 
     /**
@@ -78,21 +90,61 @@ public class OrderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        String[] orderItems = request.getParameterValues("menuitems");        
-        System.out.println("ORDERCONTROLLER" + "orderItems length =" + orderItems.length);
-        System.out.println("ORDERCONTROLLER" + orderItems.toString());
+
+        String radiocd = request.getParameter("radiocd");
+//        System.out.println("radiocd = " + radiocd);
+
+        String dbpkey = request.getParameter("dbpkey");
+        System.out.println("dbpkey = " + dbpkey);
+
+        String[] xrefRows = request.getParameterValues("xrefRows");
+        if (xrefRows == null) {
+            System.out.println("xrefRows NULL");
+        }
+        System.out.println("xrefRows[12]= " + xrefRows[12]);
+
+        String[] descs = request.getParameterValues("descs");
+        String[] ums = request.getParameterValues("ums");
+        String[] prices = request.getParameterValues("prices");
+
+        MaintenanceBuilder mb = new MaintenanceBuilder(xrefRows, radiocd, dbpkey,
+                descs, ums, prices);
         
-    
-        OrderBuilder ob = new OrderBuilder(orderItems);        
-              
-        request.setAttribute("invoiceitem", ob.getInvoiceItems());
+//        String jspName = "/MenuMaintainController.jsp";
+//        RequestDispatcher rd = request.getRequestDispatcher(jspName);
+//        rd.forward(request, response);
         
-        request.setAttribute("ordertotal", ob.getOrderTotal());       
+//        String url = "/MenuMaintainController.jsp";
+//        RequestDispatcher dispatcher =
+//                getServletContext().getRequestDispatcher(url);
+//        dispatcher.forward(request, response);
         
-               
+
+
+         //response.sendRedirect("index.html");
+         
+         MenuService ms = new MenuService();
+        ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
+
+        request.setAttribute("menuitems", menuitems);
+
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);
         view.forward(request, response);
+
+
+//        RequestDispatcher view =
+//                request.getRequestDispatcher(RESULT_PAGE);
+//        view.forward(request, response);
+
+//        String url = "/menumaintain.jsp";
+//        RequestDispatcher dispatcher =
+//                getServletContext().getRequestDispatcher(url);
+//        dispatcher.forward(request, response);
+
+
+
+
     }
 
     /**
@@ -102,6 +154,6 @@ public class OrderController extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "MenuMaintainController";
     }// </editor-fold>
 }

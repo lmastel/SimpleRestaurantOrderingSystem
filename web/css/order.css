@@ -8,30 +8,40 @@
 
 body {
     border: 3px solid black;
-    /*border: 2px solid black;*/
-    margin: 10px;
-    border: 2px solid black;
-    width: 300px;
-    padding: 10px; 
+    margin: 10px;    
+    width: 400px;
+    padding: 10px;     
 }
 
 h1 {
     color:blue;
-    border: 1px dashed black;      
+    border: 1px dashed black;
+    padding: 10px;    
     text-align:center;
     margin: .5em 0 .25em; /* .5em top, 0 right and left, .25em bottom */
-    padding: 10px; 
-    /*padding-left: 15px;*/
     background-color:yellow;
+}
+
+h2 {
+    color: blue;
+    text-align:center;    
 }
 
 h4 {
     text-align:center;    
     background-color:yellow;
 }
+
 input{
     color:blue;
     background-color:yellow;
 }
+
+
+#total {
+    background-color:yellow;
+
+}
+
 
 

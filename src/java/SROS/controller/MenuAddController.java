@@ -4,8 +4,11 @@
  */
 package SROS.controller;
 
-import SROS.model.OrderBuilder;
+import SROS.model.AddBuilder;
+import SROS.model.MenuService;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author LPM
  */
-public class OrderController extends HttpServlet {
-    private static final String RESULT_PAGE = "invoice.jsp";
+public class MenuAddController extends HttpServlet {
+    
+     private static final String RESULT_PAGE = "/menumaintain.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -31,17 +35,17 @@ public class OrderController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
 //        try {
 //            /* TODO output your page here. You may use following sample code. */
 //            out.println("<!DOCTYPE html>");
 //            out.println("<html>");
 //            out.println("<head>");
-//            out.println("<title>Servlet OrderController</title>");            
+//            out.println("<title>Servlet MenuAddController</title>");            
 //            out.println("</head>");
 //            out.println("<body>");
-//            out.println("<h1>Servlet OrderController at " + request.getContextPath() + "</h1>");
+//            out.println("<h1>Servlet MenuAddController at " + request.getContextPath() + "</h1>");
 //            out.println("</body>");
 //            out.println("</html>");
 //        } finally {            
@@ -62,7 +66,7 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -78,18 +82,24 @@ public class OrderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        String[] orderItems = request.getParameterValues("menuitems");        
-        System.out.println("ORDERCONTROLLER" + "orderItems length =" + orderItems.length);
-        System.out.println("ORDERCONTROLLER" + orderItems.toString());
         
-    
-        OrderBuilder ob = new OrderBuilder(orderItems);        
-              
-        request.setAttribute("invoiceitem", ob.getInvoiceItems());
+        String desc = request.getParameter("desc2");
+        System.out.println("MenuAddController desc= " + desc);
         
-        request.setAttribute("ordertotal", ob.getOrderTotal());       
+        String um = request.getParameter("um2");
         
-               
+        String price = request.getParameter("price2");
+        
+        AddBuilder ab = new AddBuilder(desc, um, price);
+        ab.setAdd();
+        
+        //response.sendRedirect("index.html");
+        
+        MenuService ms = new MenuService();
+        ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
+
+        request.setAttribute("menuitems", menuitems);
+
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);
         view.forward(request, response);
@@ -102,6 +112,6 @@ public class OrderController extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "MenuAddController";
     }// </editor-fold>
 }

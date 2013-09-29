@@ -31,5 +31,26 @@ public class MenuDAO implements IMenuDAO {
            
     } 
 
+    @Override
+    public boolean updateOneMenuItem(int id, String desc, String um, double price) {
+        accessor = new MySQLDBAccessor();
+        
+        return accessor.updateRow(id, desc, um, price);
+    }
+
+    @Override
+    public boolean deleteOneMenuItem(int id) {
+        accessor = new MySQLDBAccessor();
+        
+        return accessor.deleteRow(id);
+    }
+
+    @Override
+    public boolean insertOneMenuItem(String desc, String um, double price) {
+        accessor = new MySQLDBAccessor();
+        
+        return accessor.insertRow(desc, um, price);
+    }
+
     
 }
