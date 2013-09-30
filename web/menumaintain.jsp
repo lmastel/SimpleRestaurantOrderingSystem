@@ -13,11 +13,66 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu Maintenance</title>
         <link rel="stylesheet" type="text/css" href="css/menumaintain.css">
+        <script>
+            function validateForm1() {
+
+                var namelist = "";
+                with (document.form1) {
+                    for (var i = 0; i < radiocd.length; i++) {
+                        if (radiocd[i].checked) {
+                            namelist += radiocd[i].value + "\n";
+                        }
+                    }
+
+                    if (namelist == "") {
+                        alert("select change or delete");
+                        return false;
+                    }
+
+                }
+
+            }
+
+            function validateForm2() {
+
+                var x = document.forms["form2"]["desc2"].value;
+                if (x == null || x == "")
+                {
+                    alert("Item Description name must be filled out");
+                    return false;
+                }
+
+                x = document.forms["form2"]["um2"].value;
+                if (x == null || x == "")
+                {
+                    alert("Unit of Measure must be filled out");
+                    return false;
+                }
+                x = document.forms["form2"]["price2"].value;
+                if (x == 0 || x < 0)
+                {
+                    alert("Unit Price must be greater than 0");
+                    return false;
+                }
+                if (x == null || x == "")
+                {
+                    alert("Unit Price must be filled out");
+                    return false;
+                }
+
+                if (x.match(/[^.\d]/))
+                {
+                    alert("Unit Price must be a number");
+                    return false;
+                }
+            }
+        </script>
 
 
     </head>
     <body >
-        <form id="form1" name="form1" method="POST" action="MenuMaintainController.jsp">       
+        <form id="form1" name="form1" method="POST" action="MenuMaintainController.jsp"
+              onsubmit="return validateForm1();">
 
             <h1>LPM Pizza Restaurant - Menu Maintenance</h1>
 
@@ -84,7 +139,9 @@
 
         </form>
 
-        <form id="form2" name="form2" method="POST" action="MenuAddController.jsp">
+        <form id="form2" name="form2" method="POST" action="MenuAddController.jsp" 
+              onsubmit="return validateForm2();">
+
 
             <div id="head2">
 
@@ -97,15 +154,18 @@
 
             <div id="body2">
 
-                <div id="desc2"><input class ="add" name="desc2" type="text" size ="30" value="description"></div>
+                <div id="desc2"><input class ="add" name="desc2" type="text" size ="30" value=""></div>
 
-                <div id="um2"><input class ="add" name="um2" type="text" size ="15" value="unit of measure"></div>
+                <div id="um2"><input class ="add" name="um2" type="text" size ="15" value=""></div>
 
-                <div id="price2"><input class ="add" name="price2" type="text" size ="7" value="unit price"></div>
+                <div id="price2"><input class ="add" name="price2" type="text" size ="7" value="0.00"></div>
 
+                <!--<div id="price2"><input class ="add" name="price2" type="number"  min="1" max="5" value="0.00"></div>-->
 
                 <div><input id ="add" type ="submit" name ="add" value="add"> </div> 
             </div>
+            <p>
+               <a href="index.html">Exit Menu Maintenance</a> 
         </form>
     </body>
 </html>

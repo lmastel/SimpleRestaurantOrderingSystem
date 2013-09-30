@@ -51,7 +51,7 @@
                     <th></th>
                     <th>Item</th>
                     <th></th>
-                    
+
                     <th>Price</th>
                 </tr>
 
@@ -88,6 +88,8 @@
                 <input type="reset" value="Start Over">
             </h1>
         </form>
-
+        <p>
+            <a href="index.html">Exit Order</a> 
+        </p>
     </body>
 </html>
