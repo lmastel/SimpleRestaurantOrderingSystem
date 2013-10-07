@@ -4,6 +4,7 @@
  */
 package SROS.model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,8 @@ public interface IMenuDAO {
     
     public abstract ArrayList getOneMenuItem(int id);
     
-    public abstract boolean updateOneMenuItem(int id, String desc, String um, double price);
+    public abstract boolean updateOneMenuItem(int id, String desc, String um, 
+            double price) throws SQLException;
     
     public abstract boolean deleteOneMenuItem(int id);
     

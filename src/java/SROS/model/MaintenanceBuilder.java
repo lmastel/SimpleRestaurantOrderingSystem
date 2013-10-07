@@ -4,6 +4,7 @@
  */
 package SROS.model;
 
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class MaintenanceBuilder {
     private String[] prices;
 
     public MaintenanceBuilder(String[] xrefRows, String radiocd, String dbpkey,
-            String[] descs, String[] ums, String[] prices) {
+            String[] descs, String[] ums, String[] prices) throws SQLException {
         this.xrefRows = xrefRows;        
         this.radiocd = radiocd;
         this.dbpkey = dbpkey;
@@ -35,19 +36,23 @@ public class MaintenanceBuilder {
         setChangeOrDelete();
     }
 
-    public String setChangeOrDelete() {
-        if (radiocd.equals(CHANGE)) {
-            setChange();
-        } else if (radiocd.equals(DELETE)) {
-            setDelete();
+    public String setChangeOrDelete() throws SQLException {
+        switch (radiocd) {
+            case CHANGE:
+                setChange();
+                break;
+            case DELETE:
+                setDelete();
+                break;
         }
         return null;
     }
 
-    public void setChange() {
+    public void setChange() throws SQLException {
         getViewRow();
 //        int intSubmitRow = Integer.parseInt(submitrow);
-        String colItemDesc = descs[getViewRow()];
+        System.out.println("MaintenanceBuilder setChange viewrow = " + getViewRow());
+                String colItemDesc = descs[getViewRow()];
         System.out.println("colItemDesc " + colItemDesc);
         String colUnitOfMeasure = ums[getViewRow()];
         System.out.println("colUnitOfMeasure " + colUnitOfMeasure);

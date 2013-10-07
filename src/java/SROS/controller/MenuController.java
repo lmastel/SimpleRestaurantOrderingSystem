@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -80,10 +81,36 @@ public class MenuController extends HttpServlet {
             throws ServletException, IOException {
         
         //processRequest(request, response);
+        
+        String webMaster =
+                this.getServletContext().getInitParameter("webMaster");
+        
+        String custServiceEmail =                
+        this.getServletConfig().getInitParameter("custServEmail");
+        System.out.println("init-param custServiceEmail = " + custServiceEmail);
+        
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        session.setAttribute("custServEmail", custServiceEmail);        
+        System.out.println("session custServEmail = " + session.getAttribute("custServEmail"));
+        
+        String dbUrl = this.getServletConfig().getInitParameter("dbUrl");
+        System.out.println("init-param dbUrl = " + dbUrl);
+        
+        String dbUsername = this.getServletConfig().getInitParameter("dbUsername");
+        System.out.println("init-param dbUsername = " + dbUsername);
+        
+        String dbPassword = this.getServletConfig().getInitParameter("dbPassword");
+        System.out.println("init-param dbPassword = " + dbPassword);
+        
+        
+        
         MenuService ms = new MenuService();
         ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
         
-        request.setAttribute("menuitems", menuitems);        
+        request.setAttribute("menuitems", menuitems);  
+        
+        request.setAttribute("webMaster", webMaster);   
         
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);
@@ -97,6 +124,6 @@ public class MenuController extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "MenuController";
     }// </editor-fold>
 }

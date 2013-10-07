@@ -15,7 +15,6 @@
         <link rel="stylesheet" type="text/css" href="css/menumaintain.css">
         <script>
             function validateForm1() {
-
                 var namelist = "";
                 with (document.form1) {
                     for (var i = 0; i < radiocd.length; i++) {
@@ -28,10 +27,9 @@
                         alert("select change or delete");
                         return false;
                     }
-
                 }
-
             }
+
 
             function validateForm2() {
 
@@ -89,6 +87,12 @@
 
             </div>
             <%
+               
+                String message = (String)request.getAttribute("message");
+                if (message == null){
+                    message = "";
+                }
+                
                 ArrayList<ArrayList> a = (ArrayList<ArrayList>) request.getAttribute("menuitems");
                 String id = "";
                 String desc = "";
@@ -100,42 +104,47 @@
                 for (int r = 0; r < a.size(); r++) {
 
                     id = a.get(r).get(0).toString();
-
+                    
                     xrefRows[r] = id;
-                    //out.print(xrefRows[r]);
-
+                   
                     desc = (String) a.get(r).get(1);
                     um = (String) a.get(r).get(2);
-                    NumberFormat currency = NumberFormat.getNumberInstance();
-                    //price = currency.format(a.get(r).get(3));
-                    //price = (Double) a.get(r).get(3);
+                    
                     NumberFormat number = NumberFormat.getNumberInstance();
                     number.setMaximumFractionDigits(2);
                     number.setMinimumFractionDigits(2);
-                    String strPrice =
-                            number.format(a.get(r).get(3));
+                    String strPrice = number.format(a.get(r).get(3));
 
 
             %>
 
             <div id="body">
-                <input type="hidden" name="jspname"  value="/menumaintain"/>  
+                
                 <input type="hidden" name="xrefRows"  value="<%=id%>"/>  
+                
                 <div id="viewrow"><input type="text" name="viewrows" size ="5" value="<%=r + 1%>"></div> 
-                <div id="desc"><input type="text" name="descs" size ="30" value="<%=desc%>"></div>                 
+                
+                <div id="desc"><input type="text" name="descs" size ="30" value="<%=desc%>"></div>    
+                
                 <div id="um"><input type="text" name="ums" size ="15" value="<%=um%>"></div>
+                
                 <div id="price"><input type="text" name="prices" size ="7" value="<%=strPrice%>"></div>
 
                 <input id="change" type="radio" name="radiocd"  value="CHANGE"> change
                 <input id="delete" type="radio" name="radiocd"  value="DELETE"> delete
 
-                <input id ="chgdel" name="dbpkey" type ="submit" value="<%=id%>"> submit
+                <input id ="chgdel" name="dbpkey" type ="submit" value="<%=id%>"> submit               
 
             </div>
             <%
                 }
-
             %>
+            
+             <div ><input id="msg" type="text" name="message" size ="68" value="<%=message%>"></div>
+             
+             <p>
+                <%=request.getAttribute("webMaster")%>
+             </p>
 
         </form>
 
@@ -165,7 +174,7 @@
                 <div><input id ="add" type ="submit" name ="add" value="add"> </div> 
             </div>
             <p>
-               <a href="index.html">Exit Menu Maintenance</a> 
+                <a href="index.html">Exit Menu Maintenance</a> 
         </form>
     </body>
 </html>

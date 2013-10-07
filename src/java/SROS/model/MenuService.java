@@ -4,6 +4,7 @@
  */
 package SROS.model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +36,8 @@ public class MenuService {
         //return true;        
     }
     
-    public final boolean updateOneMenuItem(int id, String desc, String um, double price) {
+    public final boolean updateOneMenuItem(int id, String desc, String um, double price) 
+            throws SQLException{
         return menuDAO.updateOneMenuItem(id, desc, um, price);
         //return true;        
     }

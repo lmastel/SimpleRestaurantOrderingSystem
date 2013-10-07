@@ -87,7 +87,12 @@ public class OrderController extends HttpServlet {
               
         request.setAttribute("invoiceitem", ob.getInvoiceItems());
         
-        request.setAttribute("ordertotal", ob.getOrderTotal());       
+        request.setAttribute("ordertotal", ob.getOrderTotal());    
+        
+        String webMaster =
+                this.getServletContext().getInitParameter("webMaster");
+        
+        request.setAttribute("webMaster", webMaster); 
         
                
         RequestDispatcher view =

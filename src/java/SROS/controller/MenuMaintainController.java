@@ -8,7 +8,10 @@ import SROS.model.MaintenanceBuilder;
 import SROS.model.MenuService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,6 +74,11 @@ public class MenuMaintainController extends HttpServlet {
         ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
 
         request.setAttribute("menuitems", menuitems);
+        
+        String webMaster =
+                this.getServletContext().getInitParameter("webMaster");
+        
+        request.setAttribute("webMaster", webMaster); 
 
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);
@@ -91,42 +99,111 @@ public class MenuMaintainController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
 
+
+
         String radiocd = request.getParameter("radiocd");
-//        System.out.println("radiocd = " + radiocd);
+        System.out.println("radiocd = " + radiocd);
 
         String dbpkey = request.getParameter("dbpkey");
         System.out.println("dbpkey = " + dbpkey);
 
         String[] xrefRows = request.getParameterValues("xrefRows");
-        if (xrefRows == null) {
-            System.out.println("xrefRows NULL");
-        }
-        System.out.println("xrefRows[12]= " + xrefRows[12]);
+//        if (xrefRows == null) {
+//            System.out.println("xrefRows NULL");
+//        }
+//        System.out.println("xrefRows[0]= " + xrefRows[0]);
+//        System.out.println("xrefRows[1]= " + xrefRows[1]);
+        System.out.println("xrefRows[11]= " + xrefRows[11]);
 
         String[] descs = request.getParameterValues("descs");
+//        System.out.println("descs[0]= " + descs[0]);
+//        System.out.println("descs[1]= " + descs[1]);
+        System.out.println("descs[0].length() = " + descs[0].length());
+        System.out.println("descs[1].length() = " + descs[1].length());
+
+
+
+        int viewRow = 0;
+        for (int i = 0; i < xrefRows.length; i++) {
+            if (xrefRows[i].equals(dbpkey)) {
+                viewRow = i;
+                break;
+            }
+        }
+
+
+        String message = null;
+        System.out.println("viewRow = " + viewRow);
+        if (isBlank(descs[viewRow])) {
+            int x = viewRow + 1;
+            message = "Item " + x + " Item Descrption must be filled in";
+
+            setValidationMessage(message, request, response);
+
+        }
+
+
         String[] ums = request.getParameterValues("ums");
+
+        if (isBlank(ums[viewRow])) {
+            int x = viewRow + 1;
+            message = "Item " + x + " Unit of Measure must be filled in";
+
+            setValidationMessage(message, request, response);
+
+        }
+
+
         String[] prices = request.getParameterValues("prices");
 
-        MaintenanceBuilder mb = new MaintenanceBuilder(xrefRows, radiocd, dbpkey,
-                descs, ums, prices);
-        
-//        String jspName = "/MenuMaintainController.jsp";
-//        RequestDispatcher rd = request.getRequestDispatcher(jspName);
-//        rd.forward(request, response);
-        
-//        String url = "/MenuMaintainController.jsp";
-//        RequestDispatcher dispatcher =
-//                getServletContext().getRequestDispatcher(url);
-//        dispatcher.forward(request, response);
-        
+        if (isBlank(prices[viewRow])) {
+            int x = viewRow + 1;
+            message = "Item " + x + " Unit Price must be filled in";
+
+            setValidationMessage(message, request, response);
+
+        }
 
 
-         //response.sendRedirect("index.html");
-         
-         MenuService ms = new MenuService();
+        if (!prices[viewRow].matches("\\d{1,3}\\.\\d{1,2}")) {
+            int x = viewRow + 1;
+            message = "Item " + x + " Unit Price must be valid";
+
+            setValidationMessage(message, request, response);
+
+        }
+        try {
+            MaintenanceBuilder mb = new MaintenanceBuilder(xrefRows, radiocd, dbpkey,
+                    descs, ums, prices);
+
+    //        String jspName = "/MenuMaintainController.jsp";
+    //        RequestDispatcher rd = request.getRequestDispatcher(jspName);
+    //        rd.forward(request, response);
+
+    //        String url = "/MenuMaintainController.jsp";
+    //        RequestDispatcher dispatcher =
+    //                getServletContext().getRequestDispatcher(url);
+    //        dispatcher.forward(request, response);
+        } catch (SQLException ex) {
+            message = "Contact webmaster database error " + ex.getMessage();
+            setValidationMessage(message, request, response);
+        }
+
+
+
+        //response.sendRedirect("index.html");
+
+        MenuService ms = new MenuService();
         ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
 
         request.setAttribute("menuitems", menuitems);
+
+        request.setAttribute("message", message);
+        
+        String webMaster =
+                this.getServletContext().getInitParameter("webMaster");
+        
+        request.setAttribute("webMaster", webMaster); 
 
         RequestDispatcher view =
                 request.getRequestDispatcher(RESULT_PAGE);
@@ -145,6 +222,24 @@ public class MenuMaintainController extends HttpServlet {
 
 
 
+    }
+
+    public static boolean isBlank(String s) {
+        return (s == null) || (s.trim().length() == 0);
+    }
+
+    public void setValidationMessage(String message, HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        MenuService ms = new MenuService();
+        ArrayList<ArrayList> menuitems = ms.getAllMenuItems();
+
+        request.setAttribute("menuitems", menuitems);
+
+        request.setAttribute("message", message);
+
+        RequestDispatcher view =
+                request.getRequestDispatcher(RESULT_PAGE);
+        view.forward(request, response);
     }
 
     /**

@@ -91,5 +91,8 @@
         <p>
             <a href="index.html">Exit Order</a> 
         </p>
+        <p>
+            <%=request.getAttribute("webMaster")%>
+        </p>
     </body>
 </html>

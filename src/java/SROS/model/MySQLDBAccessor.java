@@ -134,6 +134,10 @@ public class MySQLDBAccessor {
             throws SQLException {
         ArrayList rows = new ArrayList<>();
         ResultSetMetaData metaData = results.getMetaData();
+        
+        System.out.println("metaData.getTableName" + metaData.getTableName(1));
+                
+                
         while (results.next()) {
             ArrayList<Object> row = new ArrayList<>();
             
@@ -190,15 +194,15 @@ public class MySQLDBAccessor {
     }
     
     public final boolean updateRow(final int menuId, final String itemDesc, 
-            final String unitOfMeasure, final double unitPrice) {
+            final String unitOfMeasure, final double unitPrice) throws SQLException {
         int numberOfRowsUpdated = 0;
         
-        String sql = "UPDATE menu SET item_desc = ?, unit_of_measure = ?, unit_price = ? WHERE menu_id = ?";
+        String sql = "UPDATE menu SET item_desx = ?, unit_of_measure = ?, unit_price = ? WHERE menu_id = ?";
 
         //UPDATE menu SET menu_id = 17, item_desc = "Whisky", unit_of_measure = "1oz", unit_price = 3.50 WHERE menu_id = 18;
         
-        try (Connection connection = getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql)) {            
+           Connection connection = getConnection();
+           PreparedStatement ps = connection.prepareStatement(sql);            
 
             ps.setString(1, itemDesc);
             
@@ -217,17 +221,47 @@ public class MySQLDBAccessor {
 
             return true;
 
-        } catch (SQLException e) {
-            String message = e.getMessage().toString();
-            String title = "Class MySQLDBAccessor method updateRow";
-            //outputExceptionMessage(message, title);
-            System.err.println("message" + " " + title);
-            System.err.println("error code= " + e.getErrorCode());
-            return false;
-        }
+
     }
 
-
+// public final boolean updateRow(final int menuId, final String itemDesc, 
+//            final String unitOfMeasure, final double unitPrice) {
+//        int numberOfRowsUpdated = 0;
+//        
+//        String sql = "UPDATE menu SET item_desc = ?, unit_of_measure = ?, unit_price = ? WHERE menu_id = ?";
+//
+//        //UPDATE menu SET menu_id = 17, item_desc = "Whisky", unit_of_measure = "1oz", unit_price = 3.50 WHERE menu_id = 18;
+//        
+//        try (Connection connection = getConnection();
+//                PreparedStatement ps = connection.prepareStatement(sql)) {            
+//
+//            ps.setString(1, itemDesc);
+//            
+//            ps.setString(2, unitOfMeasure);
+//
+//            ps.setDouble(3, unitPrice);
+//            
+//            ps.setInt(4, menuId);
+//
+//            numberOfRowsUpdated = ps.executeUpdate();
+//            System.out.println("numberOfRowsUpdated = " + numberOfRowsUpdated);
+//
+//            ps.close();
+//
+//            connection.close();
+//
+//            return true;
+//
+//        } catch (SQLException e) {
+//            String message = e.getMessage().toString();
+//            String title = "Class MySQLDBAccessor method updateRow";
+//            //outputExceptionMessage(message, title);
+//            System.err.println("message" + " " + title);
+//            System.err.println("error code= " + e.getErrorCode());
+//            return false;
+//        }
+//    }
+    
      public final boolean deleteRow(final int id) {
         int numberOfRowsDeleted = 0;
         String sql = "DELETE FROM menu WHERE menu_id = ?";
@@ -258,9 +292,11 @@ public class MySQLDBAccessor {
     
     public static void main(String[] args) {
         MySQLDBAccessor db = new MySQLDBAccessor();
+        db.getConnection();
+        db.getResultSetRow(0);
         //db.deleteRow(17);
         //db.updateRow("Gin", "1 oz", 2.50, 17);
-        db.insertRow("Moz Sticks", "6n pc", 5.50);
+        //db.insertRow("Moz Sticks", "6n pc", 5.50);
        
         
     }

@@ -4,6 +4,7 @@
  */
 package SROS.model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +33,8 @@ public class MenuDAO implements IMenuDAO {
     } 
 
     @Override
-    public boolean updateOneMenuItem(int id, String desc, String um, double price) {
+    public boolean updateOneMenuItem(int id, String desc, String um, double price)
+            throws SQLException {
         accessor = new MySQLDBAccessor();
         
         return accessor.updateRow(id, desc, um, price);

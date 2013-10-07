@@ -69,8 +69,10 @@
         <form id="form1" name="form1" method="GET" action="index.html">
             <h1>
                 <input type="submit" value="Submit Payment">
-
             </h1>
+            <p>
+                <%=request.getAttribute("webMaster")%>
+            </p>
         </form>
     </body>
 </html>
